@@ -1,5 +1,7 @@
 package edu.agh.wfiis.solid.srp.example1.model;
 
+import java.text.MessageFormat;
+
 public class Constraint {
 
     private boolean required;
@@ -10,9 +12,18 @@ public class Constraint {
 
     private String name;
 
-    public boolean validate(String incomingValue) {
-        return pattern == null ? true : pattern.matches(incomingValue);
+
+    public boolean validatePattern(String headerValue) {
+        return pattern == null ? true : pattern.matches(headerValue);
     }
+    public boolean validateIsHeaderRequired(String headerValue) {
+        return headerValue == null && isHeaderRequired();
+    }
+
+    public boolean checkWhetherOverwriteByDefaultValue(String headerValue){
+       return  headerValue == null && getDefaultValue() != null;
+    }
+
 
     public String getDefaultValue() {
         return defaultValue;

@@ -14,4 +14,39 @@ public class Constraints {
     public void add(List<Constraint> constraints) {
         headersConstraints.addAll(constraints);
     }
+
+    public boolean validatePattern(String headerName, String headerValue) {
+        for (Constraint constraint : headersConstraints) {
+            if(headerName == constraint.getHeaderName() && constraint.validatePattern(headerValue) == false){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateIsHeaderRequired(String headerName, String headerValue) {
+        for (Constraint constraint : headersConstraints) {
+            if(headerName == constraint.getHeaderName() && constraint.validateIsHeaderRequired(headerValue) == false){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkWhetherOverwriteByDefaultValue(String headerName, String headerValue){
+        for (Constraint constraint : headersConstraints) {
+            if(headerName == constraint.getHeaderName() && constraint.checkWhetherOverwriteByDefaultValue(headerValue) == false){
+                return false;
+            }
+        }
+        return true;
+    }
+    public String getDefaultValue(String headerName){
+        for (Constraint constraint : headersConstraints) {
+            if(headerName == constraint.getHeaderName()){
+                return constraint.getDefaultValue();
+            }
+        }
+        return "";
+    }
+
 }
